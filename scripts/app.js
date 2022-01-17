@@ -16,7 +16,7 @@ let isface = true;
 let aceOFspades = {
 suit: "spades",
 Face: "ace",
-Value:1,
+Value:11,
 IsFace: false
 };
 
@@ -26,7 +26,7 @@ let agesofTable1 = [13,23,33];
 
 console.log(agesofTable1[2]);
 
-let namesAndAges =["Hunter", 13, "patrick", 14, "Tanner", 14.8];
+let namesAndAges =["Tony", 13, "Jake", 14, "Jackson", 14.8];
 
 namesAndAges.forEach((n) => {
     console.log(n); 
