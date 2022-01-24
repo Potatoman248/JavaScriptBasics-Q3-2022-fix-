@@ -1,47 +1,63 @@
 /** @type {HTMLCanvasElement} */
-const canvas = document.getElementById('game-canvas');
-const ctx = canvas.getContext('2d');
-canvas.width = 1000;
+const canvas = document.getElementById("game-canvas");
+const ctx = canvas.getContext("2d");
+canvas.width = 800;
 canvas.height = 600;
 
+class Square {
+	constructor(x, y, color) {
+		this.x = x;
+		this.y = y;
+		this.width = 200;
+		this.height = this.width;
+		this.color = color;
+		this.yDirection = 1;
+		this.xDirection = 1;
+	}
 
-console.log("Hello world")
+	update() {
+		// bounce off the bottom
+		if (this.y + this.height >= canvas.height) {
+			this.xDirection = -1;
+		}
 
-let suit = "spades";
-let face = "queen";
-let value = 10;
+		// bounce off the top
+		if (this.y <= 0) {
+			this.yDirection = 1;
+		}
 
-let isface = true;
+		// bounces off the right
+		if (this.x + this.width >= canvas.width) {
+			this.xDirection = -1;
+		}
 
-let aceOFspades = {
-suit: "spades",
-Face: "ace",
-Value:11,
-IsFace: false
-};
+		// bounces off the left
+		if (this.x <= 0) {
+			this.xDirection = 1;
+		}
+		this.y += 10 * this.yDirection;
+		this.x += 10 * this.xDirection;
+	}
 
-console.log(aceOFspades);
+	draw() {
+		ctx.fillStyle = this.color;
+		ctx.fillRect(this.x, this.y, this.width, this.height);
+	}
+}
 
-let agesofTable1 = [13,23,33];
+let square1 = new Square(100, 200, "red");
+let square2 = new Square(20, 500, "blue");
 
-console.log(agesofTable1[2]);
 
-let namesAndAges =["Tony", 13, "Jake", 14, "Jackson", 14.8];
+function animate() {
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	square1.update();
+	square2.update();
 
-namesAndAges.forEach((n) => {
-    console.log(n); 
-});
+	square1.draw();
+	square2.draw();
 
-let myMoney = "i want lots ans lots of it$$$";
+	requestAnimationFrame(animate);
+}
 
-console.log(myMoney.toUpperCase());
-
-console.log("I loke mo money".length);
-
-namesAndAges.forEach((n) => {
-    console.log(n);
-});
-
-let over14 =  agesofTable1.filter((n) => n > 14);
-
-console.log(over14); 
+requestAnimationFrame(animate);
